@@ -37,9 +37,7 @@ class OrderServiceTest extends Specification {
     }
 
     def "findById() only use OrderRepository::findById for search for resources"() {
-        def repository = Mock(OrderRepository) {
-            findById(1L) >> Optional.of(new Order(1L))
-        }
+        def repository = Mock(OrderRepository)
 
         def service = new OrderService(repository)
 
@@ -47,7 +45,7 @@ class OrderServiceTest extends Specification {
         service.findById(1L)
 
         then:
-         1 * repository.findById(1L)
+         1 * repository.findById(1L) >> Optional.of(new Order(1L))
          0 * _
     }
 }
