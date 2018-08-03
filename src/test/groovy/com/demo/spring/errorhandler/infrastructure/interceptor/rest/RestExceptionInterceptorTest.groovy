@@ -1,9 +1,9 @@
 package com.demo.spring.errorhandler.infrastructure.interceptor.rest
 
-import com.demo.spring.errorhandler.domain.order.exception.NoResourcesException
 import spock.lang.Shared
 import spock.lang.Specification
 
+import javax.persistence.NoResultException
 import javax.servlet.http.HttpServletRequest
 
 class RestExceptionInterceptorTest extends Specification {
@@ -35,9 +35,9 @@ class RestExceptionInterceptorTest extends Specification {
         }
     }
 
-    def "handleException() catch NoResourcesException with request url and exception message"() {
+    def "handleException() catch NoResultException with request url and exception message"() {
         given:
-        def exception = Mock(NoResourcesException) {
+        def exception = Mock(NoResultException) {
             getMessage() >> _message
         }
 

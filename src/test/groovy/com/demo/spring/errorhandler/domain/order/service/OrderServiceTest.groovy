@@ -2,8 +2,9 @@ package com.demo.spring.errorhandler.domain.order.service
 
 import com.demo.spring.errorhandler.domain.order.model.Order
 import com.demo.spring.errorhandler.domain.order.port.OrderRepository
-import com.demo.spring.errorhandler.domain.order.exception.NoResourcesException
 import spock.lang.Specification
+
+import javax.persistence.NoResultException
 
 class OrderServiceTest extends Specification {
 
@@ -21,19 +22,22 @@ class OrderServiceTest extends Specification {
         thrown(IllegalArgumentException)
     }
 
-    def "findById() thrown NoResourcesException if no resources in repo"() {
+    def "findById() thrown NoResultException if no resources in repo"() {
         given:
         def repository = Mock(OrderRepository) {
-            findById(1L) >> Optional.empty()
+            findById(_id) >> Optional.empty()
         }
 
         def service = new OrderService(repository)
 
         when:
-        service.findById(1L)
+        service.findById(_id)
 
         then:
-        thrown(NoResourcesException)
+        thrown(NoResultException)
+
+        where:
+        _id = 1
     }
 
     def "findById() only use OrderRepository::findById for search for resources"() {
@@ -42,10 +46,13 @@ class OrderServiceTest extends Specification {
         def service = new OrderService(repository)
 
         when:
-        service.findById(1L)
+        service.findById(_id)
 
         then:
-         1 * repository.findById(1L) >> Optional.of(new Order(1L))
+         1 * repository.findById(_id) >> Optional.of(new Order(1L))
          0 * _
+
+        where:
+        _id = 1
     }
 }
