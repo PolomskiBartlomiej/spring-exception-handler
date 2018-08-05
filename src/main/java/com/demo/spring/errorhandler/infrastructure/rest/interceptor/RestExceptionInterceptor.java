@@ -1,4 +1,4 @@
-package com.demo.spring.errorhandler.infrastructure.interceptor.rest;
+package com.demo.spring.errorhandler.infrastructure.rest.interceptor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ class RestExceptionInterceptor {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
-    RestIllegalArgumentJson handleException(HttpServletRequest request,
-                                            IllegalArgumentException exception) {
-        return RestIllegalArgumentJson.builder()
+    RestServiceErrorJson handleException(HttpServletRequest request,
+                                         IllegalArgumentException exception) {
+        return RestServiceErrorJson.builder()
                 .url(request.getRequestURI())
                 .message(exception.getMessage())
                 .build();
@@ -23,9 +23,9 @@ class RestExceptionInterceptor {
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoResultException.class)
     @ResponseBody
-    RestIllegalArgumentJson handleException(HttpServletRequest request,
-                                            NoResultException exception) {
-        return RestIllegalArgumentJson.builder()
+    RestServiceErrorJson handleException(HttpServletRequest request,
+                                         NoResultException exception) {
+        return RestServiceErrorJson.builder()
                 .url(request.getRequestURI())
                 .message(exception.getMessage())
                 .build();

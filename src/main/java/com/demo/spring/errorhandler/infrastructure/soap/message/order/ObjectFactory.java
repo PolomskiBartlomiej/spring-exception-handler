@@ -6,7 +6,7 @@
 //
 
 
-package com.demo.spring.errorhandler.infrastructure.soap.message;
+package com.demo.spring.errorhandler.infrastructure.soap.message.order;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

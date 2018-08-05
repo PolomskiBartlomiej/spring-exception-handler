@@ -6,10 +6,14 @@
 //
 
 
-package com.demo.spring.errorhandler.infrastructure.soap.message;
+package com.demo.spring.errorhandler.infrastructure.soap.message.order;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="order" type="{http://demo/spring/error-hanlder}Order"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,27 +39,38 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id"
+    "order"
 })
-@XmlRootElement(name = "getOrderRequest")
-public class GetOrderRequest {
+@XmlRootElement(name = "getOrderResponse")
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetOrderResponse {
 
-    protected long id;
+    @XmlElement(required = true)
+    protected OrderWs order;
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the order property.
      * 
+     * @return
+     *     possible object is
+     *     {@link OrderWs }
+     *     
      */
-    public long getId() {
-        return id;
+    public OrderWs getOrder() {
+        return order;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the order property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link OrderWs }
+     *     
      */
-    public void setId(long value) {
-        this.id = value;
+    public void setOrder(OrderWs value) {
+        this.order = value;
     }
 
 }

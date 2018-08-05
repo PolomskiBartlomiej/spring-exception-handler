@@ -1,11 +1,11 @@
-package com.demo.spring.errorhandler.infrastructure.interceptor.rest;
+package com.demo.spring.errorhandler.infrastructure.rest.interceptor;
 
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
-class RestIllegalArgumentJson {
+class RestServiceErrorJson {
     private String url;
     private String message;
 }

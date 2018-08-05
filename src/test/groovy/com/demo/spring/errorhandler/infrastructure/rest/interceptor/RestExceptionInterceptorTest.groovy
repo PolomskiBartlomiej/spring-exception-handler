@@ -1,4 +1,4 @@
-package com.demo.spring.errorhandler.infrastructure.interceptor.rest
+package com.demo.spring.errorhandler.infrastructure.rest.interceptor
 
 import spock.lang.Shared
 import spock.lang.Specification

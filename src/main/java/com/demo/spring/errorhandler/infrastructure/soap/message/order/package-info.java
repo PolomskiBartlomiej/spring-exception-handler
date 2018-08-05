@@ -6,6 +6,6 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = NameSpace.ORDER, elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.demo.spring.errorhandler.infrastructure.soap.message;
+package com.demo.spring.errorhandler.infrastructure.soap.message.order;
 
 import com.demo.spring.errorhandler.infrastructure.soap.NameSpace;

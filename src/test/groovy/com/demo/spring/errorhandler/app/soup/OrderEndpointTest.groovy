@@ -2,7 +2,7 @@ package com.demo.spring.errorhandler.app.soup
 
 import com.demo.spring.errorhandler.domain.order.model.Order
 import com.demo.spring.errorhandler.domain.order.service.OrderService
-import com.demo.spring.errorhandler.infrastructure.soap.message.GetOrderRequest
+import com.demo.spring.errorhandler.infrastructure.soap.message.order.GetOrderRequest
 import spock.lang.Specification
 
 class OrderEndpointTest extends Specification {
