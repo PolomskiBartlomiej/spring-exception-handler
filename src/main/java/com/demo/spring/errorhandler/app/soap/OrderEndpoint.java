@@ -1,4 +1,4 @@
-package com.demo.spring.errorhandler.app.soup;
+package com.demo.spring.errorhandler.app.soap;
 
 import com.demo.spring.errorhandler.domain.order.service.OrderService;
 import com.demo.spring.errorhandler.infrastructure.soap.assembler.OrderWsAssembler;

@@ -49,7 +49,7 @@ class OrderServiceTest extends Specification {
         service.findById(_id)
 
         then:
-         1 * repository.findById(_id) >> Optional.of(new Order(1L))
+         1 * repository.findById(_id) >> Optional.of(new Order(1,1))
          0 * _
 
         where:

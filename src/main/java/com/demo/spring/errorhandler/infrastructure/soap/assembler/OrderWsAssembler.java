@@ -10,13 +10,14 @@ public class OrderWsAssembler {
 
     private static final ModelMapper MAPPER = new ModelMapper();
 
+    static {
+        MAPPER.getConfiguration()
+              .setMatchingStrategy(MatchingStrategies.STRICT);
+    }
+
     public static GetOrderResponse toDto(Order entity) {
-        configurationStrict();
         OrderWs orderWs = MAPPER.map(entity, OrderWs.class);
         return new GetOrderResponse(orderWs);
     }
 
-    private static void configurationStrict() {
-        MAPPER.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    }
 }
