@@ -21,16 +21,7 @@ public class SOAPServiceError {
     public static final QName Q_MESSAGE = new QName("message");
 
     public static SOAPServiceError of(Exception ex) {
-
-        if (ex instanceof NoResultException) {
-           return new SOAPServiceError("NO_RESULT",ex.getLocalizedMessage());
-        }
-
-        if (ex instanceof IllegalArgumentException) {
-            return new SOAPServiceError("BAD_REQUEST",ex.getLocalizedMessage());
-        }
-
-        return new SOAPServiceError("ERROR","Something go wrong");
+        return new SOAPServiceError(getCode(ex),getMessage(ex));
     }
 
     private SOAPServiceError(String code, String message) {
@@ -38,8 +29,18 @@ public class SOAPServiceError {
         this.message = message;
     }
 
+    private static String getCode(Exception e) {
+        if (e instanceof NoResultException) return "NO_RESULT";
+        if (e instanceof IllegalArgumentException) return "BAD_REQUEST";
+        return "ERROR";
+    }
+
+    private static String getMessage(Exception e) {
+        if (e instanceof NoResultException) return e.getLocalizedMessage();
+        if (e instanceof IllegalArgumentException) return e.getLocalizedMessage();
+        return "Something go wrong";
+    }
 
     private String code;
     private String message;
-
 }
