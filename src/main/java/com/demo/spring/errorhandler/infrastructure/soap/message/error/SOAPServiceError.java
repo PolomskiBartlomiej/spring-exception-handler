@@ -14,27 +14,30 @@ import javax.xml.namespace.QName;
         "message"
 })
 @Getter
-@Setter
 @NoArgsConstructor
 public class SOAPServiceError {
 
-    public SOAPServiceError(Exception exception) {
-        this.code = "ERROR";
-        this.message = "Something go wrong";
-
-        if (exception instanceof NoResultException) {
-            this.code = "NO_RESULT";
-            this.message = exception.getMessage();
-        }
-
-        if (exception instanceof IllegalArgumentException) {
-            this.code = "BAD_REQUEST";
-            this.message = exception.getMessage();
-        }
-    }
-
     public static final QName Q_CODE = new QName("code");
     public static final QName Q_MESSAGE = new QName("message");
+
+    public static SOAPServiceError of(Exception ex) {
+
+        if (ex instanceof NoResultException) {
+           return new SOAPServiceError("NO_RESULT",ex.getLocalizedMessage());
+        }
+
+        if (ex instanceof IllegalArgumentException) {
+            return new SOAPServiceError("BAD_REQUEST",ex.getLocalizedMessage());
+        }
+
+        return new SOAPServiceError("ERROR","Something go wrong");
+    }
+
+    private SOAPServiceError(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
 
     private String code;
     private String message;

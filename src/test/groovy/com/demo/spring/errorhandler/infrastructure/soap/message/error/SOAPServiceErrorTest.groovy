@@ -8,7 +8,7 @@ class SOAPServiceErrorTest extends Specification {
 
     def "SOAPServiceError() create correct object "() {
         when:
-        def serviceError = new SOAPServiceError(_exception)
+        def serviceError = SOAPServiceError.of(_exception)
 
         then:
         serviceError.getCode() == _code

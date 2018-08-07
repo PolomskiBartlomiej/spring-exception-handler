@@ -11,7 +11,7 @@ public class SoapExceptionInterceptor extends SoapFaultMappingExceptionResolver 
     @Override
     protected void customizeFault(Object endpoint, Exception ex, SoapFault fault) {
             logger.warn(ex);
-            SOAPServiceError serviceError = new SOAPServiceError(ex);
+            SOAPServiceError serviceError = SOAPServiceError.of(ex);
             SoapFaultDetail soapFaultDetail = fault.addFaultDetail();
             soapFaultDetail.addFaultDetailElement(SOAPServiceError.Q_CODE)
                     .addText(serviceError.getCode());
