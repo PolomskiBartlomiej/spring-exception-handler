@@ -1,1 +1,1 @@
-Project show how to use spring advice concept
+Project shows how to use spring advice concept
