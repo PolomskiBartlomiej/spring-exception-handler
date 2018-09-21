@@ -1,8 +1,8 @@
 package com.demo.spring.errorhandler.infrastructure.soap.config;
 
 import com.demo.spring.errorhandler.infrastructure.soap.NameSpace;
+import com.demo.spring.errorhandler.infrastructure.soap.error.SoapFaultHandler;
 import com.demo.spring.errorhandler.infrastructure.soap.interceptor.SoapExceptionInterceptor;
-import com.demo.spring.errorhandler.infrastructure.soap.message.error.SOAPServiceError;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class WebServiceConfig {
         exceptionResolver.setDefaultFault(faultDefinition);
 
         Properties errorMappings = new Properties();
-        errorMappings.setProperty(SOAPServiceError.class.getName(), SoapFaultDefinition.SERVER.toString());
+        errorMappings.setProperty(SoapFaultHandler.class.getName(), SoapFaultDefinition.SERVER.toString());
         exceptionResolver.setExceptionMappings(errorMappings);
         exceptionResolver.setOrder(1);
         return exceptionResolver;
