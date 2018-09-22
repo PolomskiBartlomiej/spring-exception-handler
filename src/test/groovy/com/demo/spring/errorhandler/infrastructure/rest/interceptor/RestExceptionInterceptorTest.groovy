@@ -1,56 +1,40 @@
 package com.demo.spring.errorhandler.infrastructure.rest.interceptor
 
-import spock.lang.Shared
+import com.demo.spring.errorhandler.domain.order.exception.NoResultException
 import spock.lang.Specification
 
-import javax.persistence.NoResultException
 import javax.servlet.http.HttpServletRequest
 
 class RestExceptionInterceptorTest extends Specification {
 
-    @Shared
-    def  _url = "url"
-    @Shared
-    def _message = "message"
-    @Shared
-    def request = Mock(HttpServletRequest) {
-        getRequestURI() >> _url
-    }
-
-    def "handleException() catch IllegalArgumentException with request url and exception message"() {
+    def "handleException() : response is depend on Exception"() {
         given:
-        def exception = Mock(IllegalArgumentException) {
-            getMessage() >> _message
-        }
-
         def interceptor = new RestExceptionInterceptor()
 
+        and:
+        def exception = Mock(_exception) {
+            getLocalizedMessage() >> _message
+        }
+
+        and:
+        def request = Mock(HttpServletRequest) {
+            getRequestURI() >> _url
+        }
+
         when:
-        def response = interceptor.handleException(request,exception)
+        def response = interceptor.handleException(request, exception)
 
         then:
         with(response) {
             url == _url
             message == _message
         }
-    }
 
-    def "handleException() catch NoResultException with request url and exception message"() {
-        given:
-        def exception = Mock(NoResultException) {
-            getMessage() >> _message
-        }
-
-        def interceptor = new RestExceptionInterceptor()
-
-        when:
-        def response = interceptor.handleException(request,exception)
-
-        then:
-        with(response) {
-            url == _url
-            message == _message
-        }
+        where:
+        _exception               | _message               | _url
+        IllegalArgumentException | "message"              | "url"
+        NoResultException        | "message"              | "url"
+        Exception                | "Something go wrong !" | "url"
     }
 
 }

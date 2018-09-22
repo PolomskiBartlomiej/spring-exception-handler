@@ -19,6 +19,6 @@ class OrderEndpointTest extends Specification {
         endpoint.getOrder(request)
 
         then:
-        1* service.findById(_) >> new Order()
+        1 * service.findById(_) >> new Order(1,1)
     }
 }

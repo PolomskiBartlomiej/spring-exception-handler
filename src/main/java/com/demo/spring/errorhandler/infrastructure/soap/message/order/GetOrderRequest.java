@@ -40,13 +40,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "getOrderRequest")
 public class GetOrderRequest {
 
-    protected Long id;
+    protected Integer id;
 
     /**
      * Gets the value of the id property.
      * 
      */
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -54,7 +54,7 @@ public class GetOrderRequest {
      * Sets the value of the id property.
      * 
      */
-    public void setId(Long value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

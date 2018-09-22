@@ -13,9 +13,9 @@ public abstract class SoapFaultHandler {
 
     private final Exception exception;
 
-    protected abstract String errorCode();
+    abstract String errorCode();
 
-    protected String message() {
+    String message() {
        return   exception.getLocalizedMessage();
     }
 

@@ -20,10 +20,10 @@ import java.util.Properties;
 
 @Configuration
 @EnableWs
-public class WebServiceConfig {
+class WebServiceConfig {
 
-    @Bean
-    public SoapFaultMappingExceptionResolver exceptionResolver(){
+    @Bean SoapFaultMappingExceptionResolver
+    exceptionResolver() {
         SoapFaultMappingExceptionResolver exceptionResolver = new SoapExceptionInterceptor();
 
         SoapFaultDefinition faultDefinition = new SoapFaultDefinition();
@@ -38,16 +38,16 @@ public class WebServiceConfig {
     }
 
 
-    @Bean
-    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
+    @Bean ServletRegistrationBean
+    messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
-    @Bean(name = "orders")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+    @Bean(name = "orders") DefaultWsdl11Definition
+    defaultWsdl11Definition(XsdSchema countriesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("OrdersPort");
         wsdl11Definition.setLocationUri("/ws");
@@ -56,8 +56,8 @@ public class WebServiceConfig {
         return wsdl11Definition;
     }
 
-    @Bean
-    public XsdSchema countriesSchema() {
+    @Bean XsdSchema
+    countriesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("orders.xsd"));
     }
 }

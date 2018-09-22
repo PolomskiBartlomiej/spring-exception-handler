@@ -7,7 +7,7 @@ class SoapNoResultExceptionHandler extends SoapFaultHandler {
     }
 
     @Override
-    protected String errorCode() {
+    String errorCode() {
         return "NO_RESULT";
     }
 }

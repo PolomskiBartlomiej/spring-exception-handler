@@ -7,12 +7,12 @@ class SoapExceptionHandler extends SoapFaultHandler {
     }
 
     @Override
-    protected String errorCode() {
+    String errorCode() {
         return "ERROR";
     }
 
     @Override
-    protected String message() {
+    String message() {
         return "Something go wrong";
     }
 }

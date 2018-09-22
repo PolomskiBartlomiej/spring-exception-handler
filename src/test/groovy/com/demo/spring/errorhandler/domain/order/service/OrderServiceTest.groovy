@@ -1,10 +1,10 @@
 package com.demo.spring.errorhandler.domain.order.service
 
+import com.demo.spring.errorhandler.domain.order.exception.NoResultException
 import com.demo.spring.errorhandler.domain.order.model.Order
 import com.demo.spring.errorhandler.domain.order.port.OrderRepository
 import spock.lang.Specification
 
-import javax.persistence.NoResultException
 
 class OrderServiceTest extends Specification {
 

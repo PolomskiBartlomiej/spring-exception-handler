@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-class RestServiceErrorJson {
+class MessageExceptionJson {
     private String url;
     private String message;
 }

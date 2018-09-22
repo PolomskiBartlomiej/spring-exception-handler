@@ -2,7 +2,7 @@ package com.demo.spring.errorhandler.app.rest;
 
 import com.demo.spring.errorhandler.domain.order.model.Order;
 import com.demo.spring.errorhandler.domain.order.service.OrderService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("orders")
-@AllArgsConstructor
+@RequiredArgsConstructor
 class OrderController {
-    private OrderService orderService;
+
+    private final OrderService orderService;
 
     @GetMapping("/{id}")
-    Order getOrders(@PathVariable("id") Long id) {
+    Order getOrders(@PathVariable("id") Integer id) {
         return orderService.findById(id);
     }
 

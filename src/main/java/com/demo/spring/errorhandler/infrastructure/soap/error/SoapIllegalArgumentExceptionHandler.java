@@ -7,7 +7,7 @@ class SoapIllegalArgumentExceptionHandler extends SoapFaultHandler {
     }
 
     @Override
-    protected String errorCode() {
+    String errorCode() {
         return "BAD_REQUEST";
     }
 

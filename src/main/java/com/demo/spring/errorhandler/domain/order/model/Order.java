@@ -1,23 +1,17 @@
 package com.demo.spring.errorhandler.domain.order.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Value;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
 @Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "ORDERS")
+@Value
 public class Order {
-    @Id
-    @GeneratedValue
     @NotNull
-    @Column(name = "ID")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "CUSTOMER_ID")
-    private Long customerId;
+    private Integer customerId;
 }
