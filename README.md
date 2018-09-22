@@ -3,8 +3,8 @@ Project shows how to provides implemenation of error-handling in spring boot app
 
 # preface
  # Spring MVC
-  After `Spring 3.2` Spring MVC provides new feuture to handling with exception: `@ControllerAdvice`and                       
-  `@Rest@ControllerAdvice`, upgrades it in `Spring 4` 
+  After `Spring 3.2` Spring MVC provides new features to handling with exception: `@ControllerAdvice`and                       
+  `@Rest@ControllerAdvice`, and upgrades it in `Spring 4` 
 
   > Classes annotated with `@ControllerAdvice` can contain `@ExceptionHandler`, `@InitBinder`, and `@ModelAttribute` annotated     methods, and these methods will apply to @RequestMapping methods across all controller hierarchies as opposed to the           controller hierarchy within which they are declared.
 
