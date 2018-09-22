@@ -15,5 +15,15 @@ Project shows how to provides implemenation of error-handling in spring boot app
    * annotate exception classes with the @SoapFault annotation, to indicate the SOAP Fault that should be returned whenever        that exception is thrown
    * using SoapFaultMappingExceptionResolver, which enables you customize SOAP Fault of any exception thath might be thrown
    
+# project description
+ Project focuces in handling error using RestControllerAdvice and SoapFaultMappingExceptionResolver and it
+ is build in hexagonal architectural styles :  
+  * `app`:
+    contains rest controller and soap endpoint
+  * `domain` :
+    contains model, bussines logic and port to infrastructure
+  * `infrastructure` :
+    contains configuration of rest, soap and adapter to repository
+    
  
   
