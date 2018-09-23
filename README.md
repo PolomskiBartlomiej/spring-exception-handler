@@ -1,5 +1,5 @@
 # spring-exception-handler
-Project shows how to provides implemenation of error-handling in spring boot application
+Project shows how to provide implemenation of error-handling in spring boot application
 
 # preface
  # Spring MVC
@@ -16,14 +16,66 @@ Project shows how to provides implemenation of error-handling in spring boot app
    * using SoapFaultMappingExceptionResolver, which enables you customize SOAP Fault of any exception thath might be thrown
    
 # project description
- Project focuces in handling error using RestControllerAdvice and SoapFaultMappingExceptionResolver and it
- is build in hexagonal architectural styles :  
-  * `app`:
-    contains rest controller and soap endpoint
-  * `domain` :
-    contains model, bussines logic and port to infrastructure
+  Project focuces in handling error using RestControllerAdvice and SoapFaultMappingExceptionResolver.
+ 
+  error handling assumptions:
+   * when IllegalArgumentException throws then response status shoul have BAD_REQUEST status and erorr massage
+   * when bussines exception (NoResultException) throws then reponse should have NOT_FOUND status and erorr massage
+   * when else exception throws then reponse should have INTERNAL_SERVER_ERROR status 
+ 
+ 
+  Project makes up in hexagonal architectural style :  
+   * `app`:
+      contains rest controller and soap endpoint
+   * `domain` :
+      contains model, bussines logic and port to infrastructure
+      
+        **port :**
+        ```
+        public interface OrderRepository {
+         Optional<Order> findById(Integer orderId);
+        }
+        ```
+      
+       **bussiness logic :**
+        ```
+        public class OrderService {
+
+        private final OrderRepository repository;
+
+        public Order findById(@NonNull Integer orderId) {
+          return repository
+                .findById(orderId)
+                .orElseThrow(() -> new NoResultException("No result for order id = " + orderId));
+       }
+       }
+       ```
+  
   * `infrastructure` :
-    contains configuration of rest, soap and adapter to repository
+      contains configuration of rest, soap and adapter to repository
+    
+      **adapter simualates repository :**
+      ``` 
+      ...
+      class OrderRepositoryAdapter implements OrderRepository {
+
+      @Override
+      public Optional<Order> findById(@NotNull Integer orderId) {
+         switch (orderId) {
+            case 0 : throw new IllegalArgumentException("orderId cannot be 0");
+            case 1 : return Optional.empty();
+            case 2 : return buildOrder(orderId);
+            default: throw new IllegalStateException("Illegal state");
+        }
+      }
+     ...
+     ```
+   
+   
+ 
+   
+    
+    
     
  
   
