@@ -6,7 +6,7 @@ Project shows how to provide implemenation of error-handling in spring boot appl
   After `Spring 3.2` Spring MVC provides new features to handling with exception: `@ControllerAdvice`and                       
   `@Rest@ControllerAdvice`, and upgrades it in `Spring 4` 
 
-  > Classes annotated with `@ControllerAdvice` can contain `@ExceptionHandler`, `@InitBinder`, and `@ModelAttribute`     annotated     methods, and these methods will apply to @RequestMapping methods across all controller hierarchies as opposed to the           controller hierarchy within which they are declared.
+  > Classes annotated with `@ControllerAdvice` can contain `@ExceptionHandler`, `@InitBinder`, and `@ModelAttribute`            annotated     methods, and these methods will apply to @RequestMapping methods across all controller hierarchies as          opposed to the           controller hierarchy within which they are declared.
 
   > @RestControllerAdvice is an alternative where @ExceptionHandler methods assume @ResponseBody semantics by default.
 
@@ -73,6 +73,8 @@ Project shows how to provide implemenation of error-handling in spring boot appl
    * when else exception throws then reponse should have INTERNAL_SERVER_ERROR status 
   
   # Rest
+   _Reference_: https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc
+   
    In `Spring 4.0` handling exception is enabled by `@RestControllerAdvice` mixing with `@ExceptionHandler`
    and customize error json :
    
@@ -128,6 +130,17 @@ Project shows how to provide implemenation of error-handling in spring boot appl
                 .build();
     }
   ```
+ **notes**
+ 
+  When in application is uses many `ControllerAdive` or `RestControllerAdive`, then spring registered all of them.  
+  If  `@ControllerAdvice` with an `@ExceptionHandler` for Exception gets registered before another
+ `@ControllerAdvice` class with an `@ExceptionHandler` for a more specific exception, 
+  then first one will get called.
+  To avoids this problem , use '@Order' to control order of registering `ControllerAdiveBean` in Spring.
+  
+  _Reference_: https://stackoverflow.com/questions/19498378/setting-precedence-of-multiple-controlleradvice-exceptionhandlers
+ 
+ 
   # SOAP
   In the Soap error handling is enabled by `SoapFaultMappingExceptionResolver` and override `customizeFault` method
   
@@ -139,6 +152,26 @@ Project shows how to provide implemenation of error-handling in spring boot appl
     ...
     }
   ```
+  
+  and registered bean `SoapFaultMappingExceptionResolver`
+  
+  ```
+  @Bean SoapFaultMappingExceptionResolver
+    exceptionResolver() {
+        SoapFaultMappingExceptionResolver exceptionResolver = new SoapExceptionInterceptor();
+
+        SoapFaultDefinition faultDefinition = new SoapFaultDefinition();
+        faultDefinition.setFaultCode(SoapFaultDefinition.SERVER);
+        exceptionResolver.setDefaultFault(faultDefinition);
+
+        Properties errorMappings = new Properties();
+        errorMappings.setProperty(SoapFaultHandler.class.getName(), SoapFaultDefinition.SERVER.toString());
+        exceptionResolver.setExceptionMappings(errorMappings);
+        exceptionResolver.setOrder(1);
+        return exceptionResolver;
+    }
+   ``` 
+ 
   
   
   
