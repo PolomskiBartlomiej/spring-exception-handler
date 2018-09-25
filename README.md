@@ -11,13 +11,13 @@ Project shows how to provide implemenation of error-handling in spring boot appl
   > @RestControllerAdvice is an alternative where @ExceptionHandler methods assume @ResponseBody semantics by default.
 
   # Spring WS
-   To Handling Exceptions we have to way:
+   To Handling Exceptions we have to :
    * annotate exception classes with the @SoapFault annotation, to indicate the SOAP Fault that should be returned whenever        that exception is thrown
-   * using SoapFaultMappingExceptionResolver, which enables you customize SOAP Fault of any exception thath might be thrown
+   * using SoapFaultMappingExceptionResolver, which enables you to customize SOAP Fault of any exception thath might be thrown
    
 # project description
 
-  Project makes up in hexagonal architectural style :  
+  Project is build in hexagonal architectural style :  
    * `app`:
       contains rest controller and soap endpoint
    * `domain` :
@@ -65,12 +65,12 @@ Project shows how to provide implemenation of error-handling in spring boot appl
      ```
 # assumptions and implemenation
 
-  Project focuces in handling error using `RestControllerAdvice` and `SoapFaultMappingExceptionResolver`.
+  Project focuces on handling error using `RestControllerAdvice` and `SoapFaultMappingExceptionResolver`.
   
   error handling assumptions:
-   * when IllegalArgumentException throws then response status shoul have BAD_REQUEST status and erorr massage
-   * when bussines exception (NoResultException) throws then reponse should have NOT_FOUND status and erorr massage
-   * when else exception throws then reponse should have INTERNAL_SERVER_ERROR status 
+   * when IllegalArgumentException is thorwn out then response shoudl have BAD_REQUEST status and erorr massage
+   * when bussines exception (NoResultException) is throwm out then reponse should have NOT_FOUND status and erorr massage
+   * when other exception is thrown out then reponse should have INTERNAL_SERVER_ERROR status 
   
   # Rest
    _Reference_: https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc
@@ -132,17 +132,17 @@ Project shows how to provide implemenation of error-handling in spring boot appl
   ```
  **notes**
  
-  When in application is uses many `ControllerAdive` or `RestControllerAdive`, then spring registered all of them.  
+  When `ControllerAdive` or `RestControllerAdive` is used more than once , then spring registeres all of them.  
   If  `@ControllerAdvice` with an `@ExceptionHandler` for Exception gets registered before another
  `@ControllerAdvice` class with an `@ExceptionHandler` for a more specific exception, 
   then first one will get called.
-  To avoids this problem , use '@Order' to control order of registering `ControllerAdiveBean` in Spring.
+  To avoid this problem , use '@Order' to control order of registering `ControllerAdiveBean` in Spring.
   
   _Reference_: https://stackoverflow.com/questions/19498378/setting-precedence-of-multiple-controlleradvice-exceptionhandlers
  
  
   # SOAP
-  In the Soap error handling is enabled by `SoapFaultMappingExceptionResolver` and override `customizeFault` method
+  In the SOAP error handling is enabled by `SoapFaultMappingExceptionResolver` and override `customizeFault` method
   
   ```
   public class SoapExceptionInterceptor extends SoapFaultMappingExceptionResolver {
